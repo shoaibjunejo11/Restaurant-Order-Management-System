@@ -1,0 +1,65 @@
+
+public class OrderQueue {
+
+    private OrderNode front;
+    private OrderNode rear;
+
+    // Add new order
+    public void addOrder(Order order) {
+
+        OrderNode newNode = new OrderNode(order);
+
+        if (rear == null) {
+            front = newNode;
+            rear = newNode;
+        } else {
+            rear.next = newNode;
+            rear = newNode;
+        }
+
+        System.out.println("Order Added Successfully!");
+    }
+
+    // Process next order
+    public Order processNextOrder() {
+
+        if (front == null) {
+            return null;
+        }
+
+        Order processed = front.order;
+
+        front = front.next;
+
+        if (front == null) {
+            rear = null;
+        }
+
+        return processed;
+    }
+
+    // Display all pending orders
+    public void displayOrders() {
+
+        if (front == null) {
+            System.out.println("No Pending Orders!");
+            return;
+        }
+
+        OrderNode current = front;
+
+        System.out.println("Pending Orders:");
+
+        while (current != null) {
+
+            current.order.displayOrder();
+
+            current = current.next;
+        }
+    }
+
+    // Check queue
+    public boolean isEmpty() {
+        return front == null;
+    }
+}
